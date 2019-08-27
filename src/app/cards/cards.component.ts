@@ -13,10 +13,12 @@ export class CardsComponent implements OnInit {
 
   constructor(private photosService: PhotosService) { }
 
+  logPhotos<T>(photos: T) {
+    console.log(photos);
+  }
+
   ngOnInit() {
     this.photosService.fetchPhotos()
-      .subscribe(() => {
-        console.log(this.photosService.photos);
-      });
+      .subscribe(this.logPhotos);
   }
 }

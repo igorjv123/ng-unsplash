@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpClient } from '@angular/common/http';
-import {Observable } from 'rxjs';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 export const ACCESS_KEY = 'fc6a80d90e77dc9c5176a86a7d2f1b0fca4616fb13c7a316369ca51f6abf9254';
-
 
 export interface Photo {
   page: number;
@@ -12,15 +11,40 @@ export interface Photo {
   per_page: number;
 }
 
-@Injectable({providedIn: 'root'})
-export class PhotosService {
-  public photos: Photo[] = [];
+@Injectable({ providedIn: 'root' })
 
-  constructor(private http: HttpClient) {
+export class PhotosService {
+  public photos = {};
+  constructor() {}
+
+  HttpReq(url) {
+    return Observable.create(observer => {
+
+      const controller = new AbortController();
+      const signal = controller.signal;
+
+      fetch(url, {signal})
+        .then(response => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            observer.error(`Failed HTTP : response.status`);
+          }
+        })
+        .then(photos => {
+          observer.next(photos);
+          observer.complete();
+        })
+        .catch(err => {
+          observer.error(err);
+        });
+
+      return () => controller.abort();
+    });
   }
 
   fetchPhotos(): Observable<Photo[]> {
-    return this.http.get<Photo[]>(`https://api.unsplash.com/search/photos?query=car&client_id=${ACCESS_KEY}`)
-      .pipe(tap(photos => this.photos = photos ));
+    return this.HttpReq(`https://api.unsplash.com/search/photos?query=car&client_id=${ACCESS_KEY}`)
+      .pipe(tap(photos => { this.photos = photos; }));
   }
 }
