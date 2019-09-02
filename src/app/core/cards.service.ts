@@ -15,6 +15,7 @@ export interface Photo {
 
 export class PhotosService {
   public photos = {};
+  public photo = {};
   constructor() {}
 
   HttpReq(url) {
@@ -26,6 +27,7 @@ export class PhotosService {
       fetch(url, {signal})
         .then(response => {
           if (response.ok) {
+            console.log(url)
             return response.json();
           } else {
             observer.error(`Failed HTTP : response.status`);
@@ -44,7 +46,13 @@ export class PhotosService {
   }
 
   fetchPhotos(): Observable<Photo[]> {
+    console.log('service');
     return this.HttpReq(`https://api.unsplash.com/search/photos?query=car&client_id=${ACCESS_KEY}`)
       .pipe(tap(photos => { this.photos = photos; }));
+  }
+  getPhotoById(id) {
+    this.photo = {};
+    return this.HttpReq(`https://api.unsplash.com/photos/${id}?client_id=${ACCESS_KEY}`)
+      .pipe(tap(photo => { console.log(photo); this.photo = photo; }));
   }
 }

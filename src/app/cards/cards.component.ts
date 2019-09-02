@@ -18,6 +18,7 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('cards');
     this.photosService.fetchPhotos()
       .subscribe(this.logPhotos);
   }
