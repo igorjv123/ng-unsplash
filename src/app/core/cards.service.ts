@@ -46,9 +46,12 @@ export class PhotosService {
   }
 
   fetchPhotos(): Observable<Photo[]> {
-    console.log('service');
     return this.HttpReq(`https://api.unsplash.com/search/photos?query=car&client_id=${ACCESS_KEY}`)
       .pipe(tap(photos => { this.photos = photos; }));
+  }
+  fetchMorePhotos(page): Observable<Photo[]> {
+    return this.HttpReq(`https://api.unsplash.com/search/photos?query=car&page=${page}&client_id=${ACCESS_KEY}`)
+      .pipe(tap(photos => { console.log(photos); this.photos.results = [...this.photos.results, ...photos.results]; }));
   }
   getPhotoById(id) {
     this.photo = {};

@@ -10,6 +10,7 @@ import {delay} from 'rxjs/operators';
 export class CardsComponent implements OnInit {
 
   private loading = true;
+  private page = 1;
 
   constructor(private photosService: PhotosService) { }
 
@@ -18,8 +19,18 @@ export class CardsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('cards');
+    window.addEventListener('scroll', this.handleScroll, false);
+
     this.photosService.fetchPhotos()
       .subscribe(this.logPhotos);
+  }
+
+  handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
+      this.page++;
+      this.photosService.fetchMorePhotos(this.page).subscribe();
+    }
+    // setTimeout(null, 500);
+
   }
 }
