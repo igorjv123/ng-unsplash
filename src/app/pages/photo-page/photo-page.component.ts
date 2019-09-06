@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {PhotosService} from '../../core/cards.service';
+import {PhotosService} from '../../core/services/cards.service';
 import {Location} from '@angular/common';
 
 

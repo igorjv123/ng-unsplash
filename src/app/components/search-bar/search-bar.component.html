@@ -1,11 +1,12 @@
 <div class='header'>
   <input
+    [(ngModel)] = 'query'
     class='header__input'
     placeholder='Type smth...'
   />
-  <button 
+  <button
+    (click)="searchClick()"
     class='header__search-button btn-search'
-
   >
   Search
   </button>

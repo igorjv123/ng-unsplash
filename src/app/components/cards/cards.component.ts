@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {PhotosService} from '../core/cards.service';
+import {PhotosService} from '../../core/services/cards.service';
 import {delay} from 'rxjs/operators';
 
 @Component({
@@ -13,7 +13,6 @@ export class CardsComponent implements OnInit {
   private page = 1;
 
   constructor(private photosService: PhotosService) { }
-
   logPhotos<T>(photos: T) {
     console.log(photos);
   }
