@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import Unsplash from 'unsplash-js';
 import {ACCESS_KEY, SECRET_KEY} from './api.config';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {auth} from 'firebase';
 
 const unsplash = new Unsplash({
   applicationId: ACCESS_KEY,
@@ -12,32 +14,18 @@ const authenticationUrl = unsplash.auth.getAuthenticationUrl([
 
 ]);
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor() { }
+  public user;
+  constructor(private afAuth: AngularFireAuth, ) { }
 
   authUser() {
-    // // console.log(typeof authenticationUrl)
-    // fetch(authenticationUrl, {
-    //   method: 'POST',
-    //   mode: 'cors',
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*'
-    //   },
-    //   body: JSON.stringify({
-    //     client_id: ACCESS_KEY,
-    //     redirect_uri: location.origin + location.pathname,
-    //     response_type: 'code',
-    //     scope: 'public',
-    //   }),
-    //   redirect: 'follow'
-    //
-    // }).then(res => console.log(res.json()));
-    // tslint:disable-next-line:max-line-length
-    location.assign(`https://unsplash.com/oauth/authorize?client_id=${ACCESS_KEY}&redirect_uri=https://localhost:4200&response_type=code&scope=public`);
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
+      .then(user => {
+        console.log(this.afAuth.auth.currentUser);
+        this.user = user;
+      });
   }
 }
