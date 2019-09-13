@@ -1,19 +1,27 @@
 <div class='header'>
-  <input
-    [(ngModel)] = 'query'
-    class='header__input'
-    placeholder='Type smth...'
-  />
-  <button
-    (click)="searchClick()"
-    class='header__search-button btn-search'
-  >
-  Search
-  </button>
-  <button
-    (click)="authClick()"
-    class='header__search-button'
-  >
-    Auth
-  </button>
+  <div>
+    <input
+      [(ngModel)] = 'query'
+      class='header__input'
+      placeholder='Type smth...'
+    />
+    <button
+      (click)="searchClick()"
+      class='header__search-button btn-search'
+    >
+    Search
+    </button>
+  </div>
+  <div class='auth' *ngIf="authService.afAuth.user | async as user; else showLogin">
+    <img class="auth__photo" src="{{user.photoURL}}" alt="avatar">
+    <button class="auth__logout header__search-button" (click)="logOutClick()">logOut </button>
+  </div>
+  <ng-template #showLogin>
+    <button class="auth__login header__search-button"
+      (click)="authClick()"
+      class='header__search-button'>
+      Login with Google
+    </button>
+  </ng-template>
+
 </div>

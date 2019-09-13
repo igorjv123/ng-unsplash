@@ -4,28 +4,25 @@ import {ACCESS_KEY, SECRET_KEY} from './api.config';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
 
-const unsplash = new Unsplash({
-  applicationId: ACCESS_KEY,
-  secret: SECRET_KEY
-});
-
-const authenticationUrl = unsplash.auth.getAuthenticationUrl([
-  'public',
-
-]);
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public user;
-  constructor(private afAuth: AngularFireAuth, ) { }
+
+  public user = null;
+
+  constructor(public afAuth: AngularFireAuth) { }
 
   authUser() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider())
       .then(user => {
+        this.user = user.user;
+        console.log(this.user);
         console.log(this.afAuth.auth.currentUser);
-        this.user = user;
       });
+  }
+  logoutUser() {
+    console.log(this);
+    this.afAuth.auth.signOut().then(() =>  { this.user = null; console.log(this.afAuth.auth.currentUser); }  );
   }
 }

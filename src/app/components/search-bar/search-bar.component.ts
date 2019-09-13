@@ -10,12 +10,11 @@ import {AuthService} from '../../core/services/auth.service';
 })
 export class SearchBarComponent implements OnInit {
   public query = '';
-  public arr = []
   constructor(private photoService: PhotosService, private authService: AuthService) {
   }
 
   ngOnInit() {
-
+    console.log();
   }
 
   searchClick() {
@@ -24,5 +23,10 @@ export class SearchBarComponent implements OnInit {
 
   authClick() {
     this.authService.authUser();
+
+  }
+  logOutClick() {
+    console.log('logout')
+    this.authService.logoutUser();
   }
 }
