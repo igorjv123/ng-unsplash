@@ -39,7 +39,7 @@ export class SignFormComponent implements OnInit {
   }
   loginFormSubmit(creds) {
     const { login, password } = creds;
-    this.authService.authUserWithCred(login, password);
+    this.authService.authUserWithCred(login, password, this.closePopUp);
     this.loginForm.reset();
     this.closePopUp.emit(false);
 
@@ -48,8 +48,8 @@ export class SignFormComponent implements OnInit {
   createNewUser(creds) {
     console.log(creds)
     const { login, password } = creds;
-    this.authService.createNewUser(login, password).then();
-    this.closePopUp.emit(false);
+    this.authService.createNewUser(login, password, ).then(res => console.log(res));
+
 
   }
   checkPasswords(group: FormGroup) {

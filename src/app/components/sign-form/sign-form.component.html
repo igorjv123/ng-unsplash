@@ -21,7 +21,7 @@
 
     <button class="sign-form__button" [disabled]="!registrationForm.valid" type="submit">Sign Up</button>
   </form>
-
+  <span *ngIf="authService.authWarning | async as mess">{{mess}}</span>
   <button class="auth__login header__search-button"
           (click)="authWithGoogleClick()"
           class='header__search-button'>

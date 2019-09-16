@@ -10,6 +10,7 @@ import {auth} from 'firebase';
 export class AuthService {
 
   public user = null;
+  public authWarning = null;
 
   constructor(public afAuth: AngularFireAuth) { }
 
@@ -21,12 +22,13 @@ export class AuthService {
         console.log(this.afAuth.auth.user);
       });
   }
-  authUserWithCred(login, pass) {
-    this.afAuth.auth.signInWithEmailAndPassword(login, pass).catch(err => console.log(err));
+  authUserWithCred(login, pass, closePopup) {
+    this.authWarning = null;
+    return this.afAuth.auth.signInWithEmailAndPassword(login, pass).then(closePopup()).catch(err => {this.authWarning = err.message;});
   }
   createNewUser(login, pass) {
-    console.log(login, pass)
-    return this.afAuth.auth.createUserWithEmailAndPassword(login, pass).catch(err => { throw new Error(err); } );
+    this.authWarning = null;
+    return this.afAuth.auth.createUserWithEmailAndPassword(login, pass).catch(err => {this.authWarning = err.message; } );
   }
   logoutUser() {
     console.log(this);
