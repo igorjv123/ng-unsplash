@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { PopUpComponent } from './components/pop-up/pop-up.component';
 
 
 const appRoutes: Routes = [
@@ -34,7 +35,8 @@ const appRoutes: Routes = [
     CardsComponent,
     CardComponent,
     PhotoPageComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    PopUpComponent
   ],
   imports: [
     BrowserModule,

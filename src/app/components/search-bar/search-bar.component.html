@@ -11,6 +11,12 @@
     >
     Search
     </button>
+    <button
+      class='header__search-button btn-search'
+      (click)="showPopup()"
+    >
+      REG
+    </button>
   </div>
   <div class='auth' *ngIf="authService.afAuth.user | async as user; else showLogin">
     <img class="auth__photo" src="{{user.photoURL}}" alt="avatar">
@@ -23,5 +29,6 @@
       Login with Google
     </button>
   </ng-template>
-
 </div>
+<app-pop-up (onClose) = "closePopup()" [showPopUp]="showPopUp">asdsad</app-pop-up>
+

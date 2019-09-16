@@ -1,0 +1,6 @@
+<div class = 'popup' (click)="closePopUp()" *ngIf="showPopUp">
+  <div class="popup__inner">
+    <button (click)="closePopUp()">CLOSE</button>
+    <ng-content></ng-content>
+  </div>
+</div>

@@ -10,6 +10,8 @@ import {AuthService} from '../../core/services/auth.service';
 })
 export class SearchBarComponent implements OnInit {
   public query = '';
+  public showPopUp = true;
+
   constructor(private photoService: PhotosService, private authService: AuthService) {
   }
 
@@ -28,5 +30,11 @@ export class SearchBarComponent implements OnInit {
   logOutClick() {
     console.log('logout')
     this.authService.logoutUser();
+  }
+  showPopup() {
+    this.showPopUp = true;
+  }
+  closePopup() {
+    this.showPopUp = false;
   }
 }

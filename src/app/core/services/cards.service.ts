@@ -28,7 +28,6 @@ export class PhotosService {
       fetch(url, {signal})
         .then(response => {
           if (response.ok) {
-            console.log(url)
             return response.json();
           } else {
             observer.error(`Failed HTTP : response.status`);
