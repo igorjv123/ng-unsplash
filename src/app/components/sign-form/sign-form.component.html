@@ -1,0 +1,30 @@
+<div class = "sign-wrapper">
+  <div class="sign-wrapper__toogle">
+    <div [class.active]='showLogin' (click)="switchForms(true)" class="sign-switcher sign-switcher--login"><span>Sign In</span></div>
+    <div [class.active]='!showLogin' (click)="switchForms(false)" class="sign-switcher sign-switcher--register"><span>Sign Up</span></div>
+
+  </div>
+  <form class="sign-form" [formGroup]="loginForm" *ngIf="showLogin" (ngSubmit)="loginFormSubmit(loginForm.value)">
+    <input class="sign-form__input" type="text" formControlName="login" placeholder="Login">
+
+    <input class="sign-form__input" type="password" formControlName="password" placeholder="Password">
+
+    <button class="sign-form__button" [disabled]="!loginForm.valid" type="submit">Sign In</button>
+
+  </form>
+  <form [formGroup]="registrationForm" *ngIf="!showLogin" (ngSubmit)="createNewUser(registrationForm.value)" >
+    <input class="sign-form__input" type="text" formControlName="login" placeholder="Login">
+
+    <input class="sign-form__input" type="password" formControlName="password" placeholder="Password">
+
+    <input class="sign-form__input" type="password" formControlName="confirmPassword" placeholder="Confirm password">
+
+    <button class="sign-form__button" [disabled]="!registrationForm.valid" type="submit">Sign Up</button>
+  </form>
+
+  <button class="auth__login header__search-button"
+          (click)="authWithGoogleClick()"
+          class='header__search-button'>
+    Login with Google
+  </button>
+</div>

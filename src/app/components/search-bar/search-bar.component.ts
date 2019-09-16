@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PhotosService} from '../../core/services/cards.service';
 import {AuthService} from '../../core/services/auth.service';
+import { FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -11,12 +12,13 @@ import {AuthService} from '../../core/services/auth.service';
 export class SearchBarComponent implements OnInit {
   public query = '';
   public showPopUp = true;
+  public loginForm;
 
-  constructor(private photoService: PhotosService, private authService: AuthService) {
+  constructor(private photoService: PhotosService, private authService: AuthService, ) {
+
   }
 
   ngOnInit() {
-    console.log();
   }
 
   searchClick() {
@@ -24,8 +26,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   authClick() {
-    this.authService.authUser();
-
+    this.authService.authUserWithGoogle();
   }
   logOutClick() {
     console.log('logout')

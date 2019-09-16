@@ -19,7 +19,7 @@
     </button>
   </div>
   <div class='auth' *ngIf="authService.afAuth.user | async as user; else showLogin">
-    <img class="auth__photo" src="{{user.photoURL}}" alt="avatar">
+    <img class="auth__photo" src="{{user.photoURL || 'assets/user-avatar-sample.png'}}" alt="avatar">
     <button class="auth__logout header__search-button" (click)="logOutClick()">logOut </button>
   </div>
   <ng-template #showLogin>
@@ -30,5 +30,7 @@
     </button>
   </ng-template>
 </div>
-<app-pop-up (onClose) = "closePopup()" [showPopUp]="showPopUp">asdsad</app-pop-up>
+<app-pop-up (onClose) = "closePopup()" [showPopUp]="showPopUp">
+  <app-sign-form (closePopUp) = "closePopup()" ></app-sign-form>
+</app-pop-up>
 
