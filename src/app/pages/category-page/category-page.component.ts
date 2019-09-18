@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PhotosService} from '../../core/services/cards.service';
 import {CollectionsService} from '../../core/services/collections.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,7 +9,7 @@ import {Location} from '@angular/common';
   templateUrl: './category-page.component.html',
   styleUrls: ['./category-page.component.sass']
 })
-export class CategoryPageComponent implements OnInit {
+export class CategoryPageComponent implements OnInit, OnDestroy {
 
   private loading = true;
   private page = 1;
@@ -25,6 +25,7 @@ export class CategoryPageComponent implements OnInit {
 
   ngOnInit() {
     window.addEventListener('scroll', this.handleScroll, false);
+    // @ts-ignore
     const { id } = this.route.params.value;
     console.log(id)
     this.collectionsService.getCollectionPhotos(id, 1)
@@ -39,6 +40,11 @@ export class CategoryPageComponent implements OnInit {
     }
     // setTimeout(null, 500);
 
+  }
+
+  // tslint:disable-next-line:use-lifecycle-interface
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.handleScroll, false );
   }
 
 }

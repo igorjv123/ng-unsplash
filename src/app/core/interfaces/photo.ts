@@ -5,7 +5,7 @@ export interface Photo {
   color: string;
   created_at: string;
   current_user_collections: Array<any>;
-  description: null;
+  description: string;
   height: number;
   id: string;
   liked_by_user: false;

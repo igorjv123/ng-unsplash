@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {PhotosService} from '../../core/services/cards.service';
-import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.sass']
+  styleUrls: ['./cards.component.sass'],
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit, OnDestroy {
 
   private loading = true;
   private page = 1;
@@ -31,5 +30,8 @@ export class CardsComponent implements OnInit {
     }
     // setTimeout(null, 500);
 
+  }
+  ngOnDestroy(): void {
+    window.removeEventListener('scroll', this.handleScroll, false);
   }
 }

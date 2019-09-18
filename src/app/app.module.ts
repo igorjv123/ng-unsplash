@@ -17,10 +17,10 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
 import {PopUpComponent} from './components/pop-up/pop-up.component';
 import {SignFormComponent} from './components/sign-form/sign-form.component';
-import { CategoryPageComponent } from './components/category-page/category-page.component';
-import {CategoriesListModule} from './modules/categories-list/categories-list.module';
-import { RootStoreModule } from './root-store/root-store.module';
 
+import {StoreModule} from '@ngrx/store';
+import {activeImageReducer} from './store/activeImage/activeImage.reducer';
+import { SortPipe } from './core/pipes/sort.pipe';
 
 const appRoutes: Routes = [
   {
@@ -47,6 +47,7 @@ const appRoutes: Routes = [
     SearchBarComponent,
     PopUpComponent,
     SignFormComponent,
+    SortPipe,
   ],
   imports: [
     BrowserModule,
@@ -55,19 +56,22 @@ const appRoutes: Routes = [
       appRoutes,
       // { enableTracing: true } // <-- debugging purposes only
     ),
+    StoreModule.forRoot({
+      activeImage: activeImageReducer
+    }),
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, RootStoreModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, // imports firebase/storage only needed for storage features
   ],
   providers: [],
   exports: [
     CardComponent,
     CardComponent
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

@@ -1,4 +1,4 @@
-<div class='card' *ngIf="photo" [routerLink]="['/photo', photo.id]" >
+<div class='card' *ngIf="photo" (click)='photoClick(photo)' [routerLink]="['/photo', photo.id]" >
   <img
     class = 'card__image'
     src={{photo.urls.regular}}
