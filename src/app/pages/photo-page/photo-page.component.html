@@ -1,6 +1,6 @@
 <div class='image-page' *ngIf="photosService.photo ">
   <div class='image-item'>
-    <img class = 'image-item__image' src={{photosService.photo.urls.regular }} alt={{photosService.photo.description}}/>
+    <img class = 'image-item__image' src= "{{ photosService.photo.urls.regular }}" alt={{photosService.photo.description}} />
 
     <div class='image-item__info'>
       <p class='image-description'>{{photosService.photo.alt_description}}</p>

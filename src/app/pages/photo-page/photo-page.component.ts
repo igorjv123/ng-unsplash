@@ -18,7 +18,6 @@ export class PhotoPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // @ts-ignore
     const { id } = this.route.params.value;
     this.photosService.getPhotoById(id).subscribe((photo) => console.log(photo));
     console.log();

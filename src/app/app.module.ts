@@ -1,22 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { CardsComponent } from './components/cards/cards.component';
-import { HttpClientModule } from '@angular/common/http';
-import { CardComponent } from './components/card/card.component';
-import { RouterModule, Routes } from '@angular/router';
-import { PhotoPageComponent } from './pages/photo-page/photo-page.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import {AppComponent} from './app.component';
+import {CardsComponent} from './components/cards/cards.component';
+import {HttpClientModule} from '@angular/common/http';
+import {CardComponent} from './components/card/card.component';
+import {RouterModule, Routes} from '@angular/router';
+import {PhotoPageComponent} from './pages/photo-page/photo-page.component';
+import {SearchBarComponent} from './components/search-bar/search-bar.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {AngularFireModule} from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment';
-import { PopUpComponent } from './components/pop-up/pop-up.component';
-import { SignFormComponent } from './components/sign-form/sign-form.component';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {environment} from '../environments/environment';
+import {PopUpComponent} from './components/pop-up/pop-up.component';
+import {SignFormComponent} from './components/sign-form/sign-form.component';
+import { CategoryPageComponent } from './components/category-page/category-page.component';
+import {CategoriesListModule} from './modules/categories-list/categories-list.module';
 
 
 const appRoutes: Routes = [
@@ -27,6 +29,11 @@ const appRoutes: Routes = [
   {
     path: 'photo/:id',
     component: PhotoPageComponent
+  },
+  {
+    path: 'categories-list',
+    loadChildren: () => import('./modules/categories-list/categories-list.module')
+      .then(m => m.CategoriesListModule)
   }
 ];
 
@@ -38,7 +45,7 @@ const appRoutes: Routes = [
     PhotoPageComponent,
     SearchBarComponent,
     PopUpComponent,
-    SignFormComponent
+    SignFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +62,11 @@ const appRoutes: Routes = [
     AngularFireStorageModule // imports firebase/storage only needed for storage features
   ],
   providers: [],
+  exports: [
+    CardComponent,
+    CardComponent
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

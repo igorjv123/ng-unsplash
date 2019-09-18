@@ -6,6 +6,7 @@
       placeholder='Type smth...'
     />
     <button
+
       (click)="searchClick()"
       class='header__search-button btn-search'
     >
@@ -17,6 +18,13 @@
     >
       REG
     </button>
+    <button
+      [routerLink]="['categories-list']"
+      class='header__search-button btn-search'
+    >
+      Collections
+    </button>
+
   </div>
   <div class='auth' *ngIf="authService.afAuth.user | async as user; else showLogin">
     <img class="auth__photo" src="{{user.photoURL || 'assets/user-avatar-sample.png'}}" alt="avatar">
@@ -29,6 +37,8 @@
       Login with Google
     </button>
   </ng-template>
+
+
 </div>
 <app-pop-up (onClose) = "closePopup()" [showPopUp]="showPopUp">
   <app-sign-form (closePopUp) = "closePopup()" ></app-sign-form>

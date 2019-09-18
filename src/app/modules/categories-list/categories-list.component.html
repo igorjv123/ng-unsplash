@@ -1,0 +1,11 @@
+<div *ngIf="collectionService.collections" class='categories-page'>
+  <div style="color: #000;" *ngIf="!collectionService.collections">Loading...</div>
+
+  <div *ngFor="let category of collectionService.collections" class='category-item' [routerLink]="['photos', category.id]">
+    <img class='category-item__image' src={{category.preview_photos[0].urls.small}} alt={description}/>
+    <h2 class='category-item__title'>
+      <span>{{category.title}}</span>
+    </h2>
+  </div>
+</div>
+

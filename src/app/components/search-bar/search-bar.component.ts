@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PhotosService} from '../../core/services/cards.service';
 import {AuthService} from '../../core/services/auth.service';
 import { FormBuilder } from '@angular/forms';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -11,10 +12,10 @@ import { FormBuilder } from '@angular/forms';
 })
 export class SearchBarComponent implements OnInit {
   public query = '';
-  public showPopUp = true;
+  public showPopUp = false;
   public loginForm;
 
-  constructor(private photoService: PhotosService, private authService: AuthService, ) {
+  constructor( private router: Router, private photoService: PhotosService, private authService: AuthService, ) {
 
   }
 
@@ -22,14 +23,17 @@ export class SearchBarComponent implements OnInit {
   }
 
   searchClick() {
-    this.photoService.fetchPhotos(this.query, 1).subscribe();
+    if (this.query !== '') {
+      this.photoService.fetchPhotos(this.query, 1).subscribe();
+    }
+    this.router.navigate(['']);
   }
 
   authClick() {
     this.authService.authUserWithGoogle();
   }
   logOutClick() {
-    console.log('logout')
+    console.log('logout');
     this.authService.logoutUser();
   }
   showPopup() {

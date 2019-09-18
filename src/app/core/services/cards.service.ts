@@ -55,7 +55,7 @@ export class PhotosService {
       .pipe(tap(photos => { console.log(photos); this.photos.results = [...this.photos.results, ...photos.results]; }));
   }
   getPhotoById(id) {
-    this.photo = {};
+    this.photo = null;
     return this.HttpReq(`https://api.unsplash.com/photos/${id}?client_id=${ACCESS_KEY}`)
       .pipe(tap(photo => { console.log(photo); this.photo = photo; }));
   }
