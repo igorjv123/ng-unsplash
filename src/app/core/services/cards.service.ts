@@ -3,19 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {ACCESS_KEY} from './api.config';
-
-
-export interface Photo {
-  page: number;
-  results: object;
-  per_page: number;
-}
+import {Photo} from '../interfaces/photo';
+import {Photos} from '../interfaces/photos';
 
 @Injectable({ providedIn: 'root' })
 
 export class PhotosService {
-  public photos = {};
-  public photo = {};
+  public photos: Photos;
+  public photo: Photo;
   private query = 'popular';
   constructor() {}
 
@@ -57,6 +52,6 @@ export class PhotosService {
   getPhotoById(id) {
     this.photo = null;
     return this.HttpReq(`https://api.unsplash.com/photos/${id}?client_id=${ACCESS_KEY}`)
-      .pipe(tap(photo => { console.log(photo); this.photo = photo; }));
+      .pipe(tap(photo => { this.photo = photo; }));
   }
 }

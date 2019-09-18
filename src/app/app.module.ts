@@ -19,6 +19,7 @@ import {PopUpComponent} from './components/pop-up/pop-up.component';
 import {SignFormComponent} from './components/sign-form/sign-form.component';
 import { CategoryPageComponent } from './components/category-page/category-page.component';
 import {CategoriesListModule} from './modules/categories-list/categories-list.module';
+import { RootStoreModule } from './root-store/root-store.module';
 
 
 const appRoutes: Routes = [
@@ -59,7 +60,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule // imports firebase/storage only needed for storage features
+    AngularFireStorageModule, RootStoreModule // imports firebase/storage only needed for storage features
   ],
   providers: [],
   exports: [
